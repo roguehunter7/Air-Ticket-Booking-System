@@ -1,0 +1,92 @@
+{% extends 'base.html'%}
+{% block head %}
+<style>
+    h1{
+        text-align: center;
+    }
+    body{
+        background-color: rgba(255, 112, 67,0.15);
+}
+button{
+      height: 30px;
+      width: 150px;
+      border-radius: 5%;
+      margin: 10px auto;
+      background-color: transparent;
+      border: 2px solid black;
+      color: black;
+      font-size: medium;
+      cursor: pointer;
+      /* position:relative;
+      left:40em; */
+  }
+</style>
+    <title> Available Flights </title>
+{% endblock%}
+{% block body %}
+    <h1> Availalbe Upcoming Flights </h1>
+
+    <button onclick = "window.location.href='../customer_home';" style="position:relative;left:40em;">Back</button> 
+
+    <!-- Search bar: search by airport/city -->
+    <div>
+        <form action="/customer_availableflights_search" method="POST">
+        <input type="text" name="text" placeholder="Search by..." required>
+        <select type="method" name="method"> 
+            <option value="departure_city">source city</option>
+            <option value="departure_airport">source airport</option>
+            <option value="arrival_city">destination city</option>
+            <option value="arrival_airport">destination airport</option>
+        </select>
+        <button type="submit">Search</button>
+        </form>
+    </div>
+    
+    <!-- Search bar: search by date -->
+   <div>
+        <form action="/customer_availableflights_search" method="POST">
+        <select type="method" name="method"> 
+            <option value="departure_time">departure time</option>
+            <option value="arrival_time">arrival time</option>
+        </select>
+        between:
+        <input type="date" name="text" required>
+        <input type="date" name="text2" required>
+        <button type="submit">Search</button>
+        <button onclick = "window.location.href='../customer_availableflights';">Clear search</button> 
+        </form>
+    </div>
+
+    <!-- Show flight information -->
+    {% if data %}
+    <table style="width:100%">
+        <tr>
+            <th>Airline</th>
+            <th>Fight Number</th>
+            <th>Departure Airport</th>
+            <th>Departure Time</th>
+            <th>Arrival Airport</th>
+            <th>Arrival Time</th>
+            <th>Price</th>
+            <th>Total Seats</th>
+            <th>Available Seats</th>
+            <th>Purchase</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            {% for key, value in row.items() %}
+                <th> {{ value }} </th>
+            {% endfor %}
+            <!-- The purchase button -->
+            <td class="container" style="width:200px;height:40px;">
+                <form action="/customer_availableflights_purchase" method="POST" class="center">
+                <button type="submit" name="data" value="{{row}}">Purchase</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table> 
+    {% else %}
+        <p> Nothing to show here.. </p>  
+    {% endif %}
+{% endblock%}

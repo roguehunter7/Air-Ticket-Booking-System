@@ -122,8 +122,6 @@ def fetch_customer_spending():
         
     return months, spendings, now, past_6month
     
-
-
 # Main 
 # Initialize flask
 app = Flask(__name__)

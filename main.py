@@ -5,13 +5,11 @@ import datetime
 import random
 import json
 
-# Helper Functions 
-
 # Hashing for Passwords
 def pw2md5(pw):
     return hashlib.md5(pw.encode()).hexdigest()
 
-# Say Hi to the customer and agent
+# Say Hi to the customer
 def greet_customer():
     hour = datetime.datetime.today().time().hour
     time_msg = "nighttime"
@@ -27,23 +25,6 @@ def greet_customer():
         time_msg = "night"
         
     out_msg = "Dear Customer, Good {}."
-    return out_msg.format(time_msg)
-
-def greet_agent():
-    hour = datetime.datetime.today().time().hour
-    time_msg = "nighttime"
-    if hour > 6:
-        time_msg = "morning"
-    if hour > 10:
-        time_msg = "noon"
-    if hour > 14:
-        time_msg = "afternoon"
-    if hour > 17:
-        time_msg = "evening"
-    if hour > 20:
-        time_msg = "night"
-        
-    out_msg = "Dear Agent, Good {}."
     return out_msg.format(time_msg)
 
 # Authorising Customers

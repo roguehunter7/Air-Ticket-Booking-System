@@ -368,7 +368,9 @@ def customer_availableflights_purchase_go():
         assert authorise_customer()
         data = request.form["data"]
         data = data.replace('\'','\"')
-        data = json.loads(data)
+        print("data:", data)
+        if isinstance(data, str):
+            data = json.loads(data)
         quant = request.form["quantity"]
         email = session["email"]
         for _ in range(int(quant)):
@@ -390,7 +392,7 @@ def customer_availableflights_purchase_go():
         conn.commit()
         return render_template("customer_availableflights_purchase_thankyou.html")
     except:
-       return render_template("customer_availableflights_purchase.html", data = [data], error = True)
+        return render_template("customer_availableflights_purchase.html", data = [data], error = True)
 
 if __name__ == "__main__":
     app.run("127.0.0.1", 5000, debug = True)

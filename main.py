@@ -367,10 +367,16 @@ def customer_availableflights_purchase_go():
     try:
         assert authorise_customer()
         data = request.form["data"]
-        data = data.replace('\'','\"')
+        data = data.replace('{\'','{\"')
+        data = data.replace('\'}','\"}')
+        data = data.replace('\':','\":')
+        data = data.replace('\',','\",')
+        data = data.replace(' \'',' \"')
         print("data:", data)
+        print(type(data))
+
         if isinstance(data, str):
-            data = json.loads(data)
+            data = [json.loads(data)]
         quant = request.form["quantity"]
         email = session["email"]
         for _ in range(int(quant)):
@@ -382,10 +388,10 @@ def customer_availableflights_purchase_go():
             except:
                  new_id = 0
             query = """SELECT * FROM flight NATURAL JOIN ticket NATURAL JOIN airplane WHERE status = "Upcoming" AND (airline_name, flight_num) = (%s, %s) GROUP BY airline_name, flight_num HAVING seats > count(ticket_id)"""
-            cursor.execute(query, (data["airline_name"], data["flight_num"]))
+            cursor.execute(query,(data.get("airline_name"), data.get("flight_num")))
             assert(cursor.fetchall())
             query = "INSERT INTO ticket VALUES (%s, %s, %s)"
-            cursor.execute(query, (new_id, data["airline_name"], data["flight_num"]))
+            cursor.execute(query, (new_id, data.get("airline_name"), data.get("flight_num")))
             query = "INSERT INTO purchases(ticket_id, customer_email, purchase_date) VALUES (%s, %s, %s)"
             cursor.execute(query, (new_id, email, datetime.datetime.today()))
             cursor.close()

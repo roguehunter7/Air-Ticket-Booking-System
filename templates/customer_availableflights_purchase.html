@@ -35,6 +35,9 @@
     {% endif %}
 
     {% if data %}
+        {% if data is string %}
+            {% set data = data | from_json %}
+        {% endif %}
     <table style="width:100%">
         <tr>
             <th>Airline</th>

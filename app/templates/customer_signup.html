@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{
+  /* cursor: pointer; */
+  /* color: #ff7043; */
+ background-color: rgba(255, 112, 67,0.15);
+ /* margin-left: auto;
+margin-right: auto; */
+position: absolute;
+    /* top: 50%; */
+    left: 40%;
+
+}
+h1{
+    color: #fff;
+    justify-content: center;
+    
+}
+text{
+    color: #fff;
+    justify-content: center;
+}
+
+button{
+      height: 30px;
+      width: 150px;
+      border-radius: 5%;
+      margin: 10px auto;
+      background-color: transparent;
+      border: 2px solid black;
+      color: black;
+      font-size: medium;
+      cursor: pointer;
+      justify-content: center;
+      position: relative;
+      left: 25%;
+  }
+.homepage{
+      height: 30px;
+      width: 170px;
+      border-radius: 5%;
+      margin: 10px auto;
+      background-color: transparent;
+      border: 2px solid black;
+      color: black;
+      font-size: medium;
+      cursor: pointer;
+      justify-content: center;
+      left: 40%;
+  }
+
+select{
+      height: 30px;
+      width: 130px;
+      border-radius: 5%;
+      margin: 10px auto;
+      background-color: transparent;
+      border: 2px solid black;
+      color: black;
+      font-size: medium;
+      cursor: pointer;
+      justify-content: center;
+  }
+div{
+    /* color: #fff; */
+    font-size: medium;
+    justify-content: center;
+}
+
+.customer_title{
+    color: black;
+    position: relative;
+      left: -7%;
+}
+
+  /* input{
+      height: 30px;
+      width: 150px;
+      border-radius: 5%;
+      margin: 10px auto;
+      background-color: transparent;
+      border: 2px solid white;
+      color: #fff;
+      font-size: larger;
+      cursor: pointer;
+      font-color:#fff;
+  } */
+</style>
+</head>
+<body>
+
+
+{% extends 'base.html'%}
+{% block head %}
+<title> Customer Registration </title>
+{% endblock%}
+{% block body %}
+<h1 class="customer_title"> Register as a Customer </h1>
+
+
+
+<!-- Warning if email is already taken -->
+{% if email_taken %}
+<p class="warning"> {{email_taken}} is already taken. Please use a different address.<p>
+
+<!-- Registration Form with values filled with input from the last submission -->
+<div class="signup">
+    <form action="/customer_signup_go" method="POST">
+    <label for="email">Email:</label>
+    <input type="text" name="email" value={{saved_val[0]}} required><br>
+    <label for="name">Name:</label>
+    <input type="text" name="name" value={{saved_val[1]}} required><br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" minlength="8" value={{saved_val[2]}} required>
+    <label for="building_number">Building Number:</label>
+    <input type="text" name="building_number" value={{saved_val[3]}} required><br>
+    <label for="street">Street:</label>
+    <input type="text" name="street" value={{saved_val[4]}} required><br>
+    <label for="city">City:</label>
+    <input type="text" name="city" value={{saved_val[5]}} required><br>
+    <label for="state">State:</label>
+    <input type="text" name="state" value={{saved_val[6]}} required><br>
+    <label for="phone_number">Phone Number:</label>
+    <input type="text" name="phone_number" value={{saved_val[7]}} required><br>
+    <label for="passport_number">Passport Number:</label>
+    <input type="text" name="passport_number" value={{saved_val[8]}} required><br>
+    <label for="passport_expiration">Passport Expiration:</label>
+    <input type="date" name="passport_expiration" value={{saved_val[9]}} required><br>
+    <label for="passport_country">Passport Country:</label>
+    <input type="text" name="passport_country" value={{saved_val[10]}} required><br>
+    <label for="date_of_birth">Date of Birth:</label>
+    <input type="date" name="date_of_birth" value={{saved_val[11]}} required><br>
+    <button type="submit">Submit</button>
+    </form>
+</div>
+{% else %}
+<!-- Registration Form -->
+<div class="signup">
+    <form action="/customer_signup_go" method="POST">
+    <label for="email">Email:</label>
+    <input type="text" name="email" required><br>
+    <label for="name">Name:</label>
+    <input type="text" name="name" required><br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" minlength="8" required><br>
+    <label for="building_number">Building Number:</label>
+    <input type="text" name="building_number" required><br>
+    <label for="street">Street:</label>
+    <input type="text" name="street" required><br>
+    <label for="city">City:</label>
+    <input type="text" name="city" required><br>
+    <label for="state">State:</label>
+    <input type="text" name="state" required><br>
+    <label for="phone_number">Phone Number:</label>
+    <input type="text" name="phone_number" required><br>
+    <label for="passport_number">Passport Number:</label>
+    <input type="text" name="passport_number" required><br>
+    <label for="passport_expiration">Passport Expiration:</label>
+    <input type="date" name="passport_expiration" required><br>
+    <label for="passport_country">Passport Country:</label>
+    <input type="text" name="passport_country" required><br>
+    <label for="date_of_birth">Date of Birth:</label>
+    <input type="date" name="date_of_birth" required><br>
+    <button type="submit">Submit</button>
+    </form>
+    <button onclick = "window.location.href='../';">Home Page</button> 
+</div>
+</body>
+</html>
+{% endif %}
+
+{% endblock%}

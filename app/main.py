@@ -132,7 +132,6 @@ conn = pymysql.connect(host='localhost',
                        user='root',
                        password='mysql',
                        db='online_Air_Ticket_Reservation_System',
-                       charset='utf8mb4',
                        cursorclass=pymysql.cursors.DictCursor)
 
 
@@ -376,7 +375,10 @@ def customer_availableflights_purchase_go():
         print(type(data))
 
         if isinstance(data, str):
-            data = [json.loads(data)]
+            data = json.loads(data)
+        
+        print("data:", data)
+        print(type(data))
         quant = request.form["quantity"]
         email = session["email"]
         for _ in range(int(quant)):
@@ -388,7 +390,7 @@ def customer_availableflights_purchase_go():
             except:
                  new_id = 0
             query = """SELECT * FROM flight NATURAL JOIN ticket NATURAL JOIN airplane WHERE status = "Upcoming" AND (airline_name, flight_num) = (%s, %s) GROUP BY airline_name, flight_num HAVING seats > count(ticket_id)"""
-            cursor.execute(query,(data.get("airline_name"), data.get("flight_num")))
+            cursor.execute(query,(data["airline_name"], data["flight_num"]))
             assert(cursor.fetchall())
             query = "INSERT INTO ticket VALUES (%s, %s, %s)"
             cursor.execute(query, (new_id, data.get("airline_name"), data.get("flight_num")))

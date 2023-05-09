@@ -127,8 +127,7 @@ def fetch_customer_spending():
 app = Flask(__name__)
 app.secret_key = pw2md5(str(random.random()))
 
-
-conn = pymysql.connect(host='localhost',
+conn = pymysql.connect(host='mysql',
                        user='root',
                        password='mysql',
                        db='online_Air_Ticket_Reservation_System',

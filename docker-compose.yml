@@ -10,7 +10,7 @@ services:
       DB_HOST: db
       DB_USER: root
       DB_PASSWORD: mysql
-      DB_NAME: mydb
+      DB_NAME: online_Air_Ticket_Reservation_System
   db:
     image: mysql:latest
     volumes:
@@ -18,6 +18,6 @@ services:
       - db-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: mysql
-      MYSQL_DATABASE: mydb
+      MYSQL_DATABASE: online_Air_Ticket_Reservation_System
 volumes:
   db-data:

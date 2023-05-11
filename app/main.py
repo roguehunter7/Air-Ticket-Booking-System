@@ -127,11 +127,14 @@ def fetch_customer_spending():
 app = Flask(__name__)
 app.secret_key = pw2md5(str(random.random()))
 
-conn = pymysql.connect(host='mysql',
-                       user='root',
-                       password='mysql',
-                       db='online_Air_Ticket_Reservation_System',
-                       cursorclass=pymysql.cursors.DictCursor)
+conn = pymysql.connect(
+        host="localhost",
+        port=3306,
+        user="root",
+        password="mysql",
+        db="online_Air_Ticket_Reservation_System",
+        cursorclass=pymysql.cursors.DictCursor
+    )
 
 
 # Home Page
@@ -380,22 +383,21 @@ def customer_availableflights_purchase_go():
         print(type(data))
         quant = request.form["quantity"]
         email = session["email"]
+        cursor = conn.cursor()
         for _ in range(int(quant)):
-            query = "SELECT MAX(ticket_id) AS max_id FROM ticket"
-            cursor = conn.cursor()
-            cursor.execute(query)
+            cursor.execute("SELECT MAX(ticket_id) AS max_id FROM ticket")
             try:
                 new_id = int(cursor.fetchall()[0]["max_id"]) + 1
             except:
                  new_id = 0
-            query = """SELECT * FROM flight NATURAL JOIN ticket NATURAL JOIN airplane WHERE status = "Upcoming" AND (airline_name, flight_num) = (%s, %s) GROUP BY airline_name, flight_num HAVING seats > count(ticket_id)"""
-            cursor.execute(query,(data["airline_name"], data["flight_num"]))
+            query = """SELECT * FROM flight NATURAL JOIN ticket NATURAL JOIN airplane WHERE status = %s AND (airline_name, flight_num) = (%s, %s) GROUP BY airline_name, flight_num HAVING seats > count(ticket_id)"""
+            cursor.execute(query, ("Upcoming", data["airline_name"], data["flight_num"]))
             assert(cursor.fetchall())
             query = "INSERT INTO ticket VALUES (%s, %s, %s)"
             cursor.execute(query, (new_id, data.get("airline_name"), data.get("flight_num")))
             query = "INSERT INTO purchases(ticket_id, customer_email, purchase_date) VALUES (%s, %s, %s)"
             cursor.execute(query, (new_id, email, datetime.datetime.today()))
-            cursor.close()
+        cursor.close()
         conn.commit()
         return render_template("customer_availableflights_purchase_thankyou.html")
     except:

@@ -1,11 +1,6 @@
 FROM python:latest
-
-EXPOSE 5000
-
 COPY . /app
-
-WORKDIR /app/
-
+WORKDIR /app
 RUN pip install -r requirements.txt
-
-CMD [ "python", "./main.py" ]
+ENTRYPOINT ["python"]
+CMD ["main.py"]

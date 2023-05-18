@@ -1,0 +1,120 @@
+{% extends 'base.html'%}
+<style>
+
+    h1{
+        text-align: center;
+    }
+    body{
+        background-color: rgba(255, 112, 67,0.15);
+}
+button{
+      height: 30px;
+      width: 150px;
+      border-radius: 5%;
+      margin: 10px auto;
+      background-color: transparent;
+      border: 2px solid black;
+      color: black;
+      font-size: medium;
+      cursor: pointer;
+      /* position:relative;
+      left:40em; */
+  }
+
+div{
+    color: black;
+    font-size: medium;
+}
+.title{
+    color: black;
+}
+.delay{
+    color:rgba(255,0,0,0.5);
+}
+</style>
+{% block head %}
+    <title> Flight Details </title>
+{% endblock%}
+{% block body %}
+
+    <h1> Flight Details </h1>
+
+    <button onclick = "window.location.href='../staff_myflights';">Back</button> 
+    <button onclick = "window.location.href='../staff_home';">Staff Home</button> 
+
+    <!-- Show flight information -->
+    {% if data %}
+    <table style="width:100%">
+        <tr>
+            <th>Airline</th>
+            <th>Fight Number</th>
+            <th>Departure Airport</th>
+            <th>Departure Time</th>
+            <th>Arrival Airport</th>
+            <th>Arrival Time</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Airplane ID</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            {% for key, value in row.items() %}
+                {% if value == "Delayed" %}
+                    <th class="delayed"> {{ value }} </th>
+                {% elif value == "Canceled" %}
+                    <th class="canceled"> {{ value }} </th>
+                {% else %}
+                    <th> {{ value }} </th>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table> 
+    {% else %}
+        <p> Nothing to show here.. </p>  
+    {% endif %}
+
+
+    <h2> Change Flight Status:</h2>
+    {% if error %}
+    <p class="warning"> Error. Please check your input.</p>
+    {% endif %}
+    {% if success %}
+    <p style="color: seagreen;">Operation success.</p>
+    {% endif %}
+    <div>
+        <form action="/staff_myflights_viewcustomers_changestatus" method="POST">
+        <input type="hidden" name="data" value='{{data}}'>
+        Current Status: {{data[0]["status"]}}<br>
+        Change to:
+        <select type="method" name="status"> 
+            <option value="Upcoming">Upcoming</option>
+            <option value="In progress">In Progress</option>
+            <option value="Delayed">Delayed</option>
+            <option value="Canceled">Canceled</option>
+        </select>
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <h2> Customer Information</h2>
+    {% if customer_data %}
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Ticket ID</th>
+        </tr>
+        {% for row in customer_data %}
+        <tr>
+            {% for key, value in row.items() %}
+                <th> {{ value }} </th>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table> 
+    {% else %}
+        <p> Nothing to show here.. </p>  
+    {% endif %}
+
+{% endblock%}

@@ -1,0 +1,78 @@
+{% extends 'base.html'%}
+{% block head %}
+<style>
+    h1{
+        text-align: center;
+    }
+    body{
+        background-color: rgba(255, 112, 67,0.15);
+}
+button{
+      height: 30px;
+      width: 150px;
+      border-radius: 5%;
+      margin: 10px auto;
+      background-color: transparent;
+      border: 2px solid black;
+      color: black;
+      font-size: medium;
+      cursor: pointer;
+      /* position:relative;
+      left:40em; */
+  }
+</style>
+    <title> Create New Airports </title>
+{% endblock%}
+{% block body %}
+    <h1> Create a New Airport </h1>
+
+    <button onclick = "window.location.href='../staff_home';">Staff Home</button> 
+
+    {% if success %}
+    <p style="color: seagreen;"> Operation success.<p>
+    {% endif %}
+    <!-- Warning if there is an error in inserting the new flight -->
+    {% if error %}
+    <p class="warning"> There is an error with the request:<p>
+
+    <!-- Registration Form with values filled with input from the last submission -->
+    <div class="signup">
+        <form action="/staff_addairport_go" method="POST">
+        <label for="airport">Airport Name: <br>{{airport}}</label>
+        <input type="text" name="airport" value="{{airport}}" required><br>
+        <label for="city">City:</label>
+        <input type="text" name="city" value='{{city}}' required><br>
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+    {% else %}
+    <!-- Registration Form -->
+    <div class="signup">
+        <form action="/staff_addairport_go" method="POST">
+        <label for="airport">Airport Name:</label>
+        <input type="text" name="airport" required><br>
+        <label for="city">City:</label>
+        <input type="text" name="city" required><br>
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+    {% endif %}
+
+    {% if data %}
+    <table>
+        <tr>
+            <th>Airport Name</th>
+            <th>City</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            {% for key, value in row.items() %}
+                <th> {{ value }} </th>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table> 
+    {% else %}
+        <p> Nothing to show here.. </p>  
+    {% endif %}
+{% endblock%}

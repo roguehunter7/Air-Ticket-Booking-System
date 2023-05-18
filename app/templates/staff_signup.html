@@ -1,0 +1,159 @@
+{% extends 'base.html'%}
+{% block head %}
+<style>
+    body{
+      /* cursor: pointer; */
+      /* color: #ff7043; */
+     background-color: rgba(255, 112, 67,0.15);
+     /* margin-left: auto;
+    margin-right: auto; */
+    position: absolute;
+        /* top: 50%; */
+        left: 40%;
+    
+    }
+    h1{
+        color: black;
+        position:relative;
+        left:-1.5em;
+        
+    }
+    text{
+        color: black;
+        justify-content: center;
+    }
+    
+    button{
+          height: 30px;
+          width: 150px;
+          border-radius: 5%;
+          margin: 10px auto;
+          background-color: transparent;
+          border: 2px solid black;
+          color: black;
+          font-size: medium;
+          cursor: pointer;
+          justify-content: center;
+          position: relative;
+          left: 25%;
+      }
+    .homepage{
+          height: 30px;
+          width: 170px;
+          border-radius: 5%;
+          margin: 10px auto;
+          background-color: transparent;
+          border: 2px solid black;
+          color: black;
+          font-size: medium;
+          cursor: pointer;
+          justify-content: center;
+          left: 40%;
+      }
+    
+    select{
+          height: 30px;
+          width: 130px;
+          border-radius: 5%;
+          margin: 10px auto;
+          background-color: transparent;
+          border: 2px solid black;
+          color: black;
+          font-size: medium;
+          cursor: pointer;
+          justify-content: center;
+      }
+    div{
+        /* color: #fff; */
+        font-size: medium;
+        justify-content: center;
+    }
+    
+    .customer_title{
+        color: black;
+        position: relative;
+          left: -7%;
+    }
+    
+      /* input{
+          height: 30px;
+          width: 150px;
+          border-radius: 5%;
+          margin: 10px auto;
+          background-color: transparent;
+          border: 2px solid white;
+          color: #fff;
+          font-size: larger;
+          cursor: pointer;
+          font-color:#fff;
+      } */
+    </style>
+<title> Airline Staff Registration </title>
+{% endblock%}
+{% block body %}
+<h1> Register as an Airline Staff </h1>
+
+<button id="homepage" onclick = "window.location.href='../';" style="position:relative;left:4.3em">Home Page</button> 
+
+<!-- Warning if email is already taken -->
+{% if email_taken %}
+<p class="warning"> {{email_taken}} is already taken. Please use a different username.<p>
+
+<!-- Registration Form with values filled with input from the last submission -->
+<div class="signup">
+    <form action="/staff_signup_go" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" name="username" value={{saved_val[0]}} required><br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" minlength="8" value={{saved_val[1]}} required><br>
+    <label for="first_name">First Name:</label>
+    <input type="text" name="first_name" value={{saved_val[2]}} required><br>
+    <label for="last_name">Last Name:</label>
+    <input type="text" name="last_name" value={{saved_val[3]}} required><br>
+    <label for="date_of_birth">Date of Birth:</label>
+    <input type="date" name="date_of_birth" value={{saved_val[4]}} required><br>
+    <label for="airline">Airline:</label><br>
+    <select type="method" name="airline"> 
+        {% for airline in airlines %}}
+            {% if airline["airline_name"] == saved_val[5] %}
+            <option value='{{airline["airline_name"]}}' selected>{{airline["airline_name"]}}</option>
+            {% else %}
+            <option value='{{airline["airline_name"]}}'>{{airline["airline_name"]}}</option>
+            {% endif %}
+        {% endfor %}
+        <option value="new"> Create A New Airline </option>
+    </select><br>
+    <label for="new_airline">New Airline Name (if applicable):</label>
+    <input type="text" name="new_airline"><br>
+    <button type="submit">Submit</button>
+    </form>
+</div>
+{% else %}
+<!-- Registration Form -->
+<div class="signup">
+    <form action="/staff_signup_go" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" name="username" required><br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" minlength="8" required><br>
+    <label for="first_name">First Name:</label>
+    <input type="text" name="first_name" required><br>
+    <label for="last_name">Last Name:</label>
+    <input type="text" name="last_name" required><br>
+    <label for="date_of_birth">Date of Birth:</label>
+    <input type="date" name="date_of_birth" required><br>
+    <label for="airline">Airline:</label><br>
+    <select type="method" name="airline"> 
+        {% for airline in airlines %}}
+            <option value='{{airline["airline_name"]}}'>{{airline["airline_name"]}}</option>
+        {% endfor %}
+        <option value="new"> Create A New Airline </option>
+    </select><br>
+    <label for="new_airline">New Airline Name (if applicable):</label>
+    <input type="text" name="new_airline"><br>
+    <button type="submit">Submit</button>
+    </form>
+</div>
+{% endif %}
+
+{% endblock%}

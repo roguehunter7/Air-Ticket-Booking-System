@@ -1,0 +1,61 @@
+{% extends 'base.html'%}
+{% block head %}
+<style>
+    h1{
+        text-align: center;
+    }
+    body{
+        background-color: rgba(255, 112, 67,0.15);
+}
+button{
+      height: 30px;
+      width: 150px;
+      border-radius: 5%;
+      margin: 10px auto;
+      background-color: transparent;
+      border: 2px solid black;
+      color: black;
+      font-size: medium;
+      cursor: pointer;
+      /* position:relative;
+      left:40em; */
+  }
+</style>
+    <title> Create New Planes </title>
+{% endblock%}
+{% block body %}
+    <h1> Create a New Plane </h1>
+
+    <button onclick = "window.location.href='../staff_home';">Staff Home</button> 
+
+    <!-- Warning if there is an error in inserting the new flight -->
+    {% if error %}
+    <p class="warning"> There is an error with the request:<p>
+
+    <!-- Registration Form with values filled with input from the last submission -->
+    <div class="signup">
+        <form action="/staff_addplane_go" method="POST">
+        <label for="airline">Airline: <br>{{airline}}</label>
+        <input type="hidden" name="airline" value="{{airline}}" required><br>
+        <label for="plane_id">Plane ID:</label>
+        <input type="number" name="plane_id" value='{{plane_id}}' required><br>
+        <label for="seats">Seats:</label>
+        <input type="number" name="seats" min=1 value={{seats}} required><br>
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+    {% else %}
+    <!-- Registration Form -->
+    <div class="signup">
+        <form action="/staff_addplane_go" method="POST">
+        <label for="airline">Airline: <br>{{airline}}</label>
+        <input type="hidden" name="airline" value="{{airline}}" required><br>
+        <label for="plane_id">Plane ID:</label>
+        <input type="number" name="plane_id" value='{{plane_id}}' required><br>
+        <label for="seats">Seats:</label>
+        <input type="number" name="seats" min=1 required><br>
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+    {% endif %}
+{% endblock%}

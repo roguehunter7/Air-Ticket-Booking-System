@@ -1,0 +1,79 @@
+{% extends 'base.html'%}
+{% block head %}
+<style>
+    h1{
+        text-align: center;
+    }
+    body{
+        background-color: rgba(255, 112, 67,0.15);
+}
+button{
+      height: 30px;
+      width: 150px;
+      border-radius: 5%;
+      margin: 10px auto;
+      background-color: transparent;
+      border: 2px solid black;
+      color: black;
+      font-size: medium;
+      cursor: pointer;
+      /* position:relative;
+      left:40em; */
+  }
+</style>
+    <title> Add New Booking Agent </title>
+{% endblock%}
+{% block body %}
+    <h1> Add a New Agent </h1>
+
+    <button onclick = "window.location.href='../staff_home';">Staff Home</button> 
+
+    <!-- Warning if there is an error -->
+    {% if error %}
+    <p class="warning"> There is an error with the request. Please check your input.<p>
+    {% endif %}
+    {% if success %}
+    <p style="color: seagreen;"> Operation success.<p>
+    {% endif %}
+
+    <!-- Registration Form with values filled with input from the last submission -->
+    <!-- <div class="signup">
+        <form action="/staff_addpermissions_go" method="POST">
+        <label for="username">Staff Username: <br>{{username}}</label>
+        <input type="hidden" name="username" value="{{username}}" required><br>
+        <label for="permission_type">Permission Type:</label>
+        <input type="hidden" name="permission_type" value='{{permission_type}}' required><br>
+        <button type="submit">Submit</button>
+        </form>
+    </div> -->
+
+    <!-- Registration Form -->
+    <div class="signup">
+        <form action="/staff_addagent_go" method="POST">
+        <label for="email">Booking Agent email:</label>
+        <input type="text" name="email" required><br>
+        <label for="airline">Airline Agent Works for:</label>
+        <input type="text" name="airline" required><br>
+        <button type="submit">Submit</button>
+        </form>
+    </div>
+
+
+    {% if data %}
+    <table>
+        <tr>
+            <th>Booking Agent email</th>
+            <th>Airline Agent Works for</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            {% for key, value in row.items() %}
+                <th> {{ value }} </th>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table> 
+    {% else %}
+        <p> Nothing to show here.. </p>  
+    {% endif %}
+{% endblock%}

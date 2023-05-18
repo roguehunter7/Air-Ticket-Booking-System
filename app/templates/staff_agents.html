@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+{% block head %}
+<style>
+    h1{
+        text-align: center;
+    }
+    body{
+        background-color: rgba(255, 112, 67,0.15);
+}
+button{
+      height: 30px;
+      width: 150px;
+      border-radius: 5%;
+      margin: 10px auto;
+      background-color: transparent;
+      border: 2px solid black;
+      color: black;
+      font-size: medium;
+      cursor: pointer;
+      /* position:relative;
+      left:40em; */
+  }
+</style>
+    <title> Booking Agents Roster </title>
+{% endblock%}
+{% block body %}
+    <h1> All Booking Agents </h1>
+
+    <button onclick = "window.location.href='../staff_home';">Back</button> 
+
+    <!-- Show flight information -->
+    {% if data %}
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Booking Agent ID</th>
+            <th>#Sales</th>
+            <th>Commission</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            {% for key, value in row.items() %}
+                <th> {{ value }} </th>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table> 
+    {% else %}
+        <p> Nothing to show here.. </p>  
+    {% endif %}
+{% endblock%}

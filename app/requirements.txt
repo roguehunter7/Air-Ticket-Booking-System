@@ -6,3 +6,4 @@ mypy-extensions
 mysql-connector-python
 PyMySQL
 SQLAlchemy
+cryptography

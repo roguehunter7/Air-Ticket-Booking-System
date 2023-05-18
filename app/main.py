@@ -4,6 +4,7 @@ import hashlib
 import datetime
 import random
 import json
+import cryptography
 
 # Hashing for Passwords
 def pw2md5(pw):
@@ -290,10 +291,9 @@ conn = pymysql.connect(
     port=3306,
     user='root',
     password='mysql',
-    db='online_Air_Ticket_Reservation_System',
+    database='online_Air_Ticket_Reservation_System',
     cursorclass=pymysql.cursors.DictCursor
 )
-
 
 # Home Page
 @app.route("/")
@@ -1057,4 +1057,4 @@ def staff_addpermissions_go():
 
 
 if __name__ == "__main__":
-    app.run("127.0.0.1", 5000, debug = True)
+    app.run("0.0.0.0", 5000, debug = True)

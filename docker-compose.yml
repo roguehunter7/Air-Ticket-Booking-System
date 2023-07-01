@@ -17,9 +17,4 @@ services:
             MYSQL_DATABASE: 'online_Air_Ticket_Reservation_System'
             MYSQL_ROOT_PASSWORD: 'root'
         ports:
-        - '3306:3306'
-        volumes:
-            - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-
-volumes:
-    db:
+            - '3306:3306'

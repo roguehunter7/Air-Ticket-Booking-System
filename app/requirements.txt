@@ -1,9 +1,0 @@
-docker
-Flask
-Flask-SQLAlchemy
-Jinja2
-mypy-extensions
-mysql-connector-python
-PyMySQL
-SQLAlchemy
-cryptography

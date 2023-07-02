@@ -39,6 +39,8 @@ class Flight(models.Model):
     economy_fare = models.FloatField(null=True)
     business_fare = models.FloatField(null=True)
     first_fare = models.FloatField(null=True)
+    ARR_TIME = models.FloatField(null=True)
+    WHEELS_ON = models.FloatField(null=True)
 
     def __str__(self):
         return f"{self.id}: {self.origin} to {self.destination}"

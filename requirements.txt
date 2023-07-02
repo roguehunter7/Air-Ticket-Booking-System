@@ -3,3 +3,6 @@ reportlab
 xhtml2pdf
 tqdm
 gunicorn
+pymysql
+mysql-connector-python
+mysqlclient

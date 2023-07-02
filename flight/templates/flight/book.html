@@ -47,6 +47,11 @@
                         </div>
                         <div class="col-3 time-details">
                             <div class="duration" data-value="{{flight1.duration}}"></div>
+                            {% if predicted_delay_flight1 %}
+                             <div class="predicted-delay">
+                                Predicted Arrival Delay: {{ predicted_delay_flight1 }} minutes
+                            </div>
+                            {% endif %}
                         </div>
                         <div class="col-3 arrival-time">
                             <div class="time">{{flight1.arrival_time | time:'H:i'}}</div>
@@ -81,6 +86,11 @@
                             </div>
                             <div class="col-3 time-details">
                                 <div class="duration" data-value="{{flight2.duration}}"></div>
+                                {% if predicted_delay_flight2 %}
+                                    <div class="predicted-delay">
+                                        Predicted Arrival Delay: {{ predicted_delay_flight2 }} minutes
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="col-3 arrival-time">
                                 <div class="time">{{flight2.arrival_time | time:'H:i'}}</div>

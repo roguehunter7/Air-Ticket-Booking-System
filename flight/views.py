@@ -9,6 +9,11 @@ import math
 from .models import *
 from capstone.utils import render_to_pdf, createticket
 
+import pickle
+import pandas as pd
+
+# Load the pickled model
+model = pickle.load(open('C:\\Users\\skr\\Documents\\GitHub\\Air-Ticket-Booking-System\\model_save', 'rb'))
 
 #Fee and Surcharge variable
 from .constant import FEE
@@ -251,10 +256,28 @@ def review(request):
         flight2 = None
         flight2ddate = None
         flight2adate = None
+        prediction_data1 = {
+            'ARR_TIME': flight1.ARR_TIME,
+            'ORIGIN': flight1.origin_id,
+            'DEST': flight1.destination_id,
+            'WHEELS_ON': flight1.WHEELS_ON
+            }
+        X_test1 = pd.DataFrame([prediction_data1])
+        predicted_delay1 = model.predict(X_test1)[0]
+            
         if round_trip:
             flight2 = Flight.objects.get(id=flight_2)
             flight2ddate = datetime(int(date2.split('-')[2]),int(date2.split('-')[1]),int(date2.split('-')[0]),flight2.depart_time.hour,flight2.depart_time.minute)
             flight2adate = (flight2ddate + flight2.duration)
+            prediction_data2 = {
+                'ARR_TIME': flight2.ARR_TIME,
+                'ORIGIN': flight2.origin_id,
+                'DEST': flight2.destination_id,
+                'WHEELS_ON': flight2.WHEELS_ON
+                }
+            X_test2 = pd.DataFrame([prediction_data2])
+            predicted_delay2 = model.predict(X_test2)[0]
+            print(predicted_delay2)
         #print("//////////////////////////////////")
         #print(f"flight1ddate: {flight1adate-flight1ddate}")
         #print("//////////////////////////////////")
@@ -267,14 +290,17 @@ def review(request):
                 "flight2ddate": flight2ddate,
                 "flight2adate": flight2adate,
                 "seat": seat,
-                "fee": FEE
+                "fee": FEE,
+                'predicted_delay_flight1': int(predicted_delay1/10),
+                'predicted_delay_flight2': int(predicted_delay2/10)
             })
         return render(request, "flight/book.html", {
             'flight1': flight1,
             "flight1ddate": flight1ddate,
             "flight1adate": flight1adate,
             "seat": seat,
-            "fee": FEE
+            "fee": FEE,
+            'predicted_delay_flight1': int(predicted_delay1/10)
         })
     else:
         return HttpResponseRedirect(reverse("login"))
@@ -286,11 +312,15 @@ def book(request):
             flight_1date = request.POST.get('flight1Date')
             flight_1class = request.POST.get('flight1Class')
             f2 = False
+            
+            
             if request.POST.get('flight2'):
                 flight_2 = request.POST.get('flight2')
                 flight_2date = request.POST.get('flight2Date')
                 flight_2class = request.POST.get('flight2Class')
                 f2 = True
+                
+                
             countrycode = request.POST['countryCode']
             mobile = request.POST['mobile']
             email = request.POST['email']
@@ -334,11 +364,13 @@ def book(request):
                 return render(request, "flight/payment.html", { ##
                     'fare': fare+FEE,   ##
                     'ticket': ticket1.id,   ##
-                    'ticket2': ticket2.id   ##
+                    'ticket2': ticket2.id
+                    ##
                 })  ##
             return render(request, "flight/payment.html", {
                 'fare': fare+FEE,
-                'ticket': ticket1.id
+                'ticket': ticket1.id,
+                'predicted_delay_flight1': predicted_delay1
             })
         else:
             return HttpResponseRedirect(reverse("login"))

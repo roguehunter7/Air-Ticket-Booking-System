@@ -1,5 +1,0 @@
-Django
-reportlab
-xhtml2pdf
-tqdm
-gunicorn

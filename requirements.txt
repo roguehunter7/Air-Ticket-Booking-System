@@ -6,3 +6,10 @@ gunicorn
 pymysql
 mysql-connector-python
 mysqlclient
+djangorestframework
+markdown 
+django-filter
+pandas
+numpy
+scikit-learn==1.1.3
+coreapi

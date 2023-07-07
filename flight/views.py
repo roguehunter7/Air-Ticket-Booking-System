@@ -369,8 +369,7 @@ def book(request):
                 })  ##
             return render(request, "flight/payment.html", {
                 'fare': fare+FEE,
-                'ticket': ticket1.id,
-                'predicted_delay_flight1': predicted_delay1
+                'ticket': ticket1.id
             })
         else:
             return HttpResponseRedirect(reverse("login"))

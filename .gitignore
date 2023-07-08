@@ -1,4 +1,4 @@
 /capstone/__pycache__/
 /env/
-/flight/__pycache__/
-/flight/migrations/__pycache__/
+/flight/__pycache__
+/flight/migrations/__pycache__

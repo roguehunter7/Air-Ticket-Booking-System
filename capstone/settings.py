@@ -70,7 +70,7 @@ DATABASES = {
         'NAME': 'online_air_ticket_reservation_system',
         'USER': 'root',
         'PASSWORD': 'mysql',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '3306',
     }
 }

@@ -12,8 +12,17 @@ from capstone.utils import render_to_pdf, createticket
 import pickle
 import pandas as pd
 
-# Load the pickled model
-model = pickle.load(open('C:\\Users\\skr\\Documents\\GitHub\\Air-Ticket-Booking-System\\model_save', 'rb'))
+import os
+
+# Get the base directory of the Django project
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Construct the file path to the model_save file
+model_path = os.path.join(base_dir, 'model_save')
+
+# Load the model
+with open(model_path, 'rb') as file:
+    model = pickle.load(file)
 
 #Fee and Surcharge variable
 from .constant import FEE

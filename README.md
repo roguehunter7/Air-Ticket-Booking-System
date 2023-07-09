@@ -12,7 +12,8 @@ The program will assume the password of the localhost mysql server to be 'mysql'
 5. Users can view their previously booked tickets (Both confirmed and cancelled tickets).
 6. Tickets are downloadable as pdf document.
 7. As-you-type Search
-
+8. Per-Airplane Arrival Delay Predicted by Machine Learning based on Historical Data
+   
 ### Installation
 
 - Install Python from [here](https://www.python.org/downloads/) manually.

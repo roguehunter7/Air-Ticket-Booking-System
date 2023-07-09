@@ -4,14 +4,13 @@ services:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_DATABASE: 'online_air_ticket_reservation_system'
-      MYSQL_USER: 'root'
-      MYSQL_PASSWORD: 'mysql'
       MYSQL_ROOT_PASSWORD: 'mysql'
     volumes:
       - ./db:/docker-entrypoint-initdb.d
     ports:
       - '3306:3306'
+    networks:
+      - air-ticket-net
 
   web:
     build:
@@ -27,6 +26,9 @@ services:
       DB_PASSWORD: mysql
     depends_on:
       - db
-    command: >
-      bash -c "while ! mysqladmin ping -h $DB_HOST --silent; do sleep 1; done;
-      python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "sleep 30s ; python manage.py runserver 0.0.0.0:8000"
+    networks:
+      - air-ticket-net
+
+networks:
+  air-ticket-net:

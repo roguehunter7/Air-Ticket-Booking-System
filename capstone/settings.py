@@ -12,11 +12,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '=k3z-^1ov_hy5y%ebw(2e-npk@$#!(c8ix=+7so*hmw9m0c52*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
     '0.0.0.0',
+    'krsreeram007.pythonanywhere.com',
 ]
 
 
@@ -68,10 +69,10 @@ WSGI_APPLICATION = 'capstone.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'online_air_ticket_reservation_system',
-        'USER': 'root',
-        'PASSWORD': 'mysql',
-        'HOST': 'db',
+        'NAME': 'krsreeram007$online_air_ticket_reservation_system',
+        'USER': 'krsreeram007',
+        'PASSWORD': 'mysql123',
+        'HOST': 'krsreeram007.mysql.pythonanywhere-services.com',
         'PORT': '3306',
     }
 }

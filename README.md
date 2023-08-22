@@ -24,4 +24,4 @@ The program will assume the password of the localhost mysql server to be 'mysql'
 - Open web browser and goto `127.0.0.1:8000` url to start using the web application.
 
 ###Deployment
-- The Web App has been through the help of "www.pythonanywhere.com"'s services and can be viewed at http://krsreeram007.pythonanywhere.com/ 
+- The Web App has been through the help of "pythonanywhere.com" 's services and can be viewed at http://krsreeram007.pythonanywhere.com/ 

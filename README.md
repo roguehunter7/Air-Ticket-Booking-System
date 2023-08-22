@@ -23,5 +23,5 @@ The program will assume the password of the localhost mysql server to be 'mysql'
 - Run the command `python manage.py runserver` to run the web server.
 - Open web browser and goto `127.0.0.1:8000` url to start using the web application.
 
-###Deployment
+### Deployment
 - The Web App has been through the help of "pythonanywhere.com" 's services and can be viewed at http://krsreeram007.pythonanywhere.com/ 

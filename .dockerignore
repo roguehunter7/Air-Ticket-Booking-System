@@ -1,0 +1,16 @@
+# Git
+.git
+.gitignore
+
+# Docker
+.docker
+
+# Python
+/flight/__pycache__/
+/flight/__pycache__/
+/flight/migrations/__pycache__/
+.env/
+.venv/
+venv/
+env/
+Documents/

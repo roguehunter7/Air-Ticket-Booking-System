@@ -4,6 +4,8 @@ Repository for building the suyati project for the airport ticket booking system
 
 The program will assume the password of the localhost mysql server to be 'mysql'
 
+db contains a cut down version of the database that we are using.
+
 ### Features
 1. Users can create their user account.
 2. Users can book both one-way as well as round-trip tickets.

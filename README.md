@@ -13,15 +13,6 @@ The program will assume the password of the localhost mysql server to be 'mysql'
 6. Tickets are downloadable as pdf document.
 7. As-you-type Search
 8. Per-Airplane Arrival Delay Predicted by Machine Learning based on Historical Data
-   
-### Installation
-
-- Install Python from [here](https://www.python.org/downloads/) manually.
-- Install project dependencies by running `python -m pip install -r requirements.txt`.
-- Run the commands `python manage.py makemigrations` and `python manage.py migrate` in the project directory to make and apply migrations.
-- Create superuser with `python manage.py createsuperuser`. (This step is optional.)
-- Run the command `python manage.py runserver` to run the web server.
-- Open web browser and goto `127.0.0.1:8000` url to start using the web application.
 
 ### Deployment
 - The Web App has been through the help of "pythonanywhere.com" 's services and can be viewed at http://krsreeram007.pythonanywhere.com/ 
